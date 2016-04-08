@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row">
+    <div class="span12">
+      <ul class="cats">
+        {% for cat in cats %}
+        <li>
+          <time>{{cat.timestamp|date:"yyyy-MM-dd HH:mm"}}</time>
+          <p>Name: {{cat.name}}</p>
+          <p>Owner: {{cat.owner}}</p>
+          <p>Size: {{cat.size}}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <form method="POST" action="/">
+        {% csrf-field %}
+        <p>
+          Name:
+          <input class="form-control"
+                 type="text"
+                 name="name"
+                 value="{{name}}" />
+        </p>
+        {% if errors.name %}
+        <div class="alert alert-danger">{{errors.name|join}}</div>
+        {% endif %}
+        <p>
+          Owner:
+          <input class="form-control"
+                 type="text"
+                 name="owner"
+                 value="{{owner}}" />
+        </p>
+        {% if errors.owner %}
+        <div class="alert alert-danger">{{errors.owner|join}}</div>
+        {% endif %}
+        <p>
+          Size:
+          <input class="form-control"
+                 type="text"
+                 name="size"
+                 value="{{size}}" />
+        </p>
+        {% if errors.size %}
+        <div class="alert alert-danger">{{errors.size|join}}</div>
+        {% endif %}
+        <input type="submit" class="btn btn-primary" value="New Cat" />
+      </form>
+    </div>
+  </div>
+{% endblock %}
