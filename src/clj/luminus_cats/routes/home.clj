@@ -25,6 +25,11 @@
         (assoc params :timestamp (java.util.Date.)))
       (response/found "/"))))
 
+(defn delete-cat! [id]
+  (do
+    (db/delete-cat!)
+    (response/found "/")))
+
 (defn home-page [{:keys [flash]}]
   (layout/render
     "home.html"
@@ -38,4 +43,3 @@
   (GET "/" request (home-page request))
   (POST "/" request (create-cat! request))
   (GET "/about" [] (about-page)))
-
